@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
 import Alert from "./Alert/Alert";
 
-interface Props {
-	isAlert: boolean;
-	showAlert: () => void;
+interface IAlertStyles {
+	display: string;
+	cursor: string;
 }
 
-const Level02: React.FC<Props> = ({isAlert, showAlert }) => {
-	return (
-		<div className="text-center" style={{ display: isAlert ? 'block' : 'none' }}>
-			<Alert type="warning" onDismiss={showAlert}>This is a warning type alert</Alert>
-		</div>
+const Level02: React.FC = () => {
+	const [isAlert, setIsAlert] = useState<boolean>(true);
 
+	const showAlert = (): void => setIsAlert(!isAlert);
+
+	const alertStyles: IAlertStyles = {
+		display: isAlert ? 'block' : 'none' ,
+		cursor: 'pointer'
+	};
+
+	return (
+		<div className="position-absolute top-0 end-0 mt-4 mx-4" style={alertStyles}>
+			<Alert type="warning" showAlert={showAlert} clickDismissable>This is a warning type alert</Alert>
+		</div>
 	);
 };
 
